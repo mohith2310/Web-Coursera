@@ -6,7 +6,7 @@ body {
   background-color: #151618;
   color: #151618;
 }
- 
+
 /* .card {
   background-color: #26272b;
   color: #737373; 
@@ -167,4 +167,23 @@ hr {
     margin-right: 0;
     font-weight: 600;
   }
+}
+
+.btn-search {
+  background: #0d6efd;
+  border-radius: 0;
+  color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #1c1c1c;
+  border-left: 0;
+}
+.btn-search:link,
+.btn-search:visited {
+  color: #fff;
+}
+.btn-search:active,
+.btn-search:hover {
+  background: #1c1c1c;
+  color: #fff;
 }
