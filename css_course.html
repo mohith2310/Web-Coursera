@@ -19,7 +19,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Web Coursera</a>
+      <a class="navbar-brand" href="index.html">Web Coursera</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-4">
           <li class="nav-item">
@@ -102,11 +102,24 @@
               <th scope="col">S.No</th>
               <th scope="col">Video</th>
               <th scope="col">Title</th>
-              <th scope="col">Duration</th>
+              <th scope="col">
+                <div>Duration</div>
+                <div
+                  style="
+                    text-align: center;
+                    width: 55%;
+                    cursor: pointer;
+                    color: rgb(14, 191, 235);
+                  "
+                  id="sortButton"
+                >
+                  v
+                </div>
+              </th>
             </tr>
           </thead>
-          <tbody>
-            <tr scope="row">
+          <tbody id="references">
+            <tr scope="row" data-len="1">
               <td>1</td>
               <td>
                 <a href="https://www.youtube.com/watch?v=XPv4EeB0PJ8"
@@ -125,7 +138,7 @@
               </td>
               <td>Small</td>
             </tr>
-            <tr scope="row">
+            <tr scope="row" data-len="2">
               <td>2</td>
               <td>
                 <a href="https://www.youtube.com/watch?v=hD3blgVYMtQ"
@@ -144,7 +157,7 @@
               </td>
               <td>Small</td>
             </tr>
-            <tr scope="row">
+            <tr scope="row" data-len="3">
               <td>3</td>
               <td>
                 <a href="https://www.youtube.com/watch?v=6vbgZnQrpbU"
@@ -164,7 +177,7 @@
               </td>
               <td>Medium</td>
             </tr>
-            <tr scope="row">
+            <tr scope="row" data-len="4">
               <td>4</td>
               <td>
                 <a href="https://www.youtube.com/watch?v=Edsxf_NBFrw"
@@ -183,7 +196,7 @@
               </td>
               <td>Large</td>
             </tr>
-            <tr scope="row">
+            <tr scope="row" data-len="5">
               <td>5</td>
               <td>
                 <a href="https://www.youtube.com/watch?v=sqJ6xZ9mUwE"
@@ -290,4 +303,47 @@
       </div>
     </div>
   </footer>
+  <script type="application/javascript">
+    function sortWithIndeces(toSort) {
+      for (var i = 0; i < toSort.length; i++) {
+        toSort[i] = [toSort[i], i];
+      }
+      toSort.sort(function (left, right) {
+        return left[0] < right[0] ? -1 : 1;
+      });
+      toSort.sortIndices = [];
+      for (var j = 0; j < toSort.length; j++) {
+        toSort.sortIndices.push(toSort[j][1]);
+        toSort[j] = toSort[j][0];
+      }
+      return toSort;
+    }
+
+    function myFunction(event) {
+      refrences = document.getElementById("references");
+      refs = [...refrences.children];
+      data_lens = refs.map((ref) => ref.getAttribute("data-len"));
+      sorted_indices = sortWithIndeces(data_lens).sortIndices;
+      sorted_refs = [];
+
+      if (event.srcElement.innerText == "^") {
+        event.srcElement.innerText = "v";
+        for (var i = 0; i < sorted_indices.length; i++) {
+          refrences.children[sorted_indices[i]].children[0].innerText = i + 1;
+          sorted_refs.push(refs[sorted_indices[i]].outerHTML);
+        }
+      } else {
+        event.srcElement.innerText = "^";
+        for (var i = sorted_indices.length - 1; i >= 0; i--) {
+          refrences.children[sorted_indices[i]].children[0].innerText =
+            sorted_indices.length - i;
+          sorted_refs.push(refs[sorted_indices[i]].outerHTML);
+        }
+      }
+
+      refrences.innerHTML = sorted_refs.join(" ");
+    }
+
+    document.getElementById("sortButton").addEventListener("click", myFunction);
+  </script>
 </body>
