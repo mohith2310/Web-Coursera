@@ -1,0 +1,9 @@
+.terms {
+  min-height: 90vh;
+  color: white;
+  background-color: #212529;
+  margin: 5rem auto;
+  width: 70%;
+  padding: 4rem 4rem;
+  box-shadow: 0 0 1px 3px #252525;
+}
